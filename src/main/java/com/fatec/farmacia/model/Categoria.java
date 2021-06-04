@@ -9,11 +9,11 @@ import javax.persistence.Table;
 public class Categoria {
 
     @Id
-    private int id;
+    private Long id;
 
     private String nome;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

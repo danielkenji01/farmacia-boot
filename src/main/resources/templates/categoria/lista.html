@@ -23,12 +23,14 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
+                        <th scope="col">#</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="categoria : ${categorias}">
                         <th th:text="${categoria.id}">1</th>
                         <td th:text="${categoria.nome}">Mark</td>
+                        <td><a th:href="@{/categorias/__${categoria.id}__/editar}">Editar</a></td>
                     </tr>
                     </tbody>
                 </table>

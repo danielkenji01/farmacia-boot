@@ -5,6 +5,7 @@ import com.fatec.farmacia.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -17,6 +18,10 @@ public class CategoriaService {
 
     public List<Categoria> buscarTodas() {
         return categoriaRepository.findAll();
+    }
+
+    public Optional<Categoria> buscarPorId(Long id) {
+        return categoriaRepository.findById(id);
     }
 
     public void cadastrar(Categoria categoria) {

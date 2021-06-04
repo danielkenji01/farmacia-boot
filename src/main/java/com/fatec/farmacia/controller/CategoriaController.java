@@ -1,11 +1,15 @@
 package com.fatec.farmacia.controller;
 
 import com.fatec.farmacia.dto.CategoriaDTO;
+import com.fatec.farmacia.model.Categoria;
 import com.fatec.farmacia.service.CategoriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Controller
 public class CategoriaController {
@@ -28,6 +32,7 @@ public class CategoriaController {
     public String novaCategoria(Model model) {
 
         model.addAttribute("categoriaDTO", new CategoriaDTO());
+        model.addAttribute("isEdicao", false);
 
         return "categoria/form";
     }
@@ -40,7 +45,39 @@ public class CategoriaController {
         );
 
         return "redirect:/categorias";
+    }
 
+    @GetMapping("/categorias/{categoriaId}/editar")
+    public String editarCategoria(@PathVariable Long categoriaId,
+                                  Model model) {
+
+        Optional<Categoria> categoriaOptional = categoriaService.buscarPorId(categoriaId);
+
+        if (!categoriaOptional.isPresent()) {
+            return "redirect:/categorias";
+        }
+
+        model.addAttribute("categoriaDTO", new CategoriaDTO(categoriaOptional.get()));
+        model.addAttribute("isEdicao", true);
+
+        return "categoria/form";
+    }
+
+    @PostMapping("/categorias/{categoriaId}/editar")
+    public String editarCategoria(@PathVariable Long categoriaId,
+                                  CategoriaDTO categoriaDTO) {
+
+        Optional<Categoria> categoriaOptional = categoriaService.buscarPorId(categoriaId);
+
+        if (!categoriaOptional.isPresent()) {
+            return "redirect:/categorias";
+        }
+
+        categoriaService.cadastrar(
+                categoriaDTO.toCategoria(categoriaOptional.get())
+        );
+
+        return "redirect:/categorias";
     }
 
 }
