@@ -14,14 +14,37 @@ public class Produto {
 
     private String nome;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Fornecedor fornecedor;
 
     private BigDecimal preco;
 
     private Date dataExclusao;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public Date getDataExclusao() {
+        return dataExclusao;
+    }
 }

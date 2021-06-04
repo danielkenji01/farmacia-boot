@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,7 +24,9 @@ public class CategoriaController {
     @GetMapping("/categorias")
     public String buscarCategorias(Model model) {
 
-        model.addAttribute("categorias", categoriaService.buscarTodas());
+        List<Categoria> categorias = categoriaService.buscarTodas();
+
+        model.addAttribute("categorias", categorias);
 
         return "categoria/lista";
     }
@@ -40,9 +43,9 @@ public class CategoriaController {
     @PostMapping("/categorias/novo")
     public String novaCategoria(CategoriaDTO categoriaDTO) {
 
-        categoriaService.salvar(
-                categoriaDTO.toCategoria()
-        );
+        Categoria categoria = categoriaDTO.toCategoria();
+
+        categoriaService.salvar(categoria);
 
         return "redirect:/categorias";
     }
