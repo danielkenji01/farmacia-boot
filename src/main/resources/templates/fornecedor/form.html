@@ -17,12 +17,17 @@
             <div class="col-sm-12 mt-5">
 
                 <form method="post"
-                      th:action="${isEdicao} ? @{/categorias/__${categoriaId}__/editar} : @{/categorias/novo}"
-                      th:object="${categoriaDTO}">
+                      th:action="${isEdicao} ? @{/fornecedores/__${fornecedorId}__/editar} : @{/fornecedores/novo}"
+                      th:object="${fornecedorDTO}">
 
                     <div class="form-group">
-                        <label for="nome">Nome da categoria:</label>
+                        <label for="nome">Nome do fornecedor:</label>
                         <input type="text" th:field="*{nome}" id="nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endereco">Endereço do fornecedor:</label>
+                        <input type="text" th:field="*{endereco}" id="endereco">
                     </div>
 
                     <button class="btn btn-primary"
