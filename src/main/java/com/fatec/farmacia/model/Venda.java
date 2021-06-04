@@ -16,6 +16,15 @@ public class Venda {
 
     private BigDecimal valorTotal;
 
-    private String tipoPagamento; // TODO alterar para enum
+    @Enumerated(EnumType.STRING)
+    private TipoPagamento tipoPagamento;
+
+    public enum TipoPagamento {
+
+        DINHEIRO,
+        CARTAO_CREDITO,
+        CARTAO_DEBITO;
+
+    }
 
 }
