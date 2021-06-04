@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div th:replace="main :: header">
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 mt-5">
+
+            <form method="post"
+                  th:action="${isEdicao} ? @{/venda/__${vendaId}__/adicionar-produto} : @{/venda/adicionar-produto}"
+                  th:object="${vendaDTO}">
+
+                <div class="form-group">
+                    <label for="produtoId">ID do produto:</label>
+                    <input class="form-control" type="text" th:field="*{produtoId}" id="produtoId">
+                </div>
+
+                <div class="form-group">
+                    <label for="quantidade">Quantidade:</label>
+                    <input class="form-control" type="text" th:field="*{quantidade}" id="quantidade">
+                </div>
+
+                <button class="btn btn-primary" type="submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-5 col-sm-12" th:if="${venda != null}">
+        <table class="table table-stripered table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Preço unitário</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Preço final</th>
+                <th scope="col">#</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="itemVenda : ${venda.itemVendaList}" th:with="produto=${itemVenda.produto}">
+                <th th:text="${itemVenda.id}">1</th>
+                <td th:text="${produto.nome}">Mark</td>
+                <td th:text="${itemVenda.valorUnitario}">Mark</td>
+                <td th:text="${itemVenda.quantidade}">Mark</td>
+                <td th:text="${itemVenda.valorTotal}">Mark</td>
+                <td><a th:href="@{/venda/__${venda}__/excluir-produto/__${produto.id}__}">Excluir</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
