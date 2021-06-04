@@ -1,8 +1,6 @@
 package com.fatec.farmacia.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,7 +9,8 @@ import java.util.Date;
 public class Venda {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private Date dataVenda;
 
