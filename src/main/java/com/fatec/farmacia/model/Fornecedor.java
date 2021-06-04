@@ -17,6 +17,14 @@ public class Fornecedor {
 
     private Date dataExclusao;
 
+    public Fornecedor() {
+
+    }
+
+    public Fornecedor(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,19 +1,27 @@
 package com.fatec.farmacia.controller;
 
+import com.fatec.farmacia.dto.ProdutoDTO;
 import com.fatec.farmacia.model.Produto;
+import com.fatec.farmacia.service.CategoriaService;
+import com.fatec.farmacia.service.FornecedorService;
 import com.fatec.farmacia.service.ProdutoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
 @Controller
 public class ProdutoController {
     private final ProdutoService produtoService;
+    private final CategoriaService categoriaService;
+    private final FornecedorService fornecedorService;
 
-    public ProdutoController(ProdutoService produtoService) {
+    public ProdutoController(ProdutoService produtoService, CategoriaService categoriaService, FornecedorService fornecedorService) {
         this.produtoService = produtoService;
+        this.categoriaService = categoriaService;
+        this.fornecedorService = fornecedorService;
     }
 
     @GetMapping("/produtos")
@@ -21,5 +29,19 @@ public class ProdutoController {
         List<Produto> produtos = produtoService.buscarTodos();
         model.addAttribute("produtos",produtos);
         return "produtos/lista";
+    }
+    @GetMapping("/produtos/novo")
+    public String adicionaProduto (Model model) {
+        model.addAttribute("produtoDTO",new ProdutoDTO());
+        model.addAttribute("isEdicao",false);
+        model.addAttribute("categorias",categoriaService.buscarTodas());
+        model.addAttribute("fornecedores",fornecedorService.buscarTodas());
+        return "produtos/form";
+    }
+
+    @PostMapping("/produtos/novo")
+    public String adicionaProduto (ProdutoDTO produtoDTO) {
+        produtoService.salvar(produtoDTO.produtoConverte());
+        return "redirect:/produtos";
     }
 }

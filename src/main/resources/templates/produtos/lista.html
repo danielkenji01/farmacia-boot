@@ -34,8 +34,8 @@
                 <tr th:each="produto : ${produtos}">
                     <th th:text="${produto.id}">1</th>
                     <td th:text="${produto.nome}">Mark</td>
-                    <td th:text="${produto.categoria}">Mark</td>
-                    <td th:text="${produto.fornecedor}">Mark</td>
+                    <td th:text="${produto.categoria.nome}">Mark</td>
+                    <td th:text="${produto.fornecedor.nome}">Mark</td>
                     <td th:text="${produto.preco}">Mark</td>
                     <td><a th:href="@{/produtos/__${produto.id}__/editar}">Editar</a></td>
                     <td><a th:href="@{/produtos/__${produto.id}__/excluir}">Excluir</a></td>
