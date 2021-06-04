@@ -40,7 +40,7 @@ public class FornecedorController {
     @PostMapping("/fornecedores/novo")
     public String novaFornecedor(FornecedorDTO fornecedorDTO) {
 
-        fornecedorService.cadastrar(
+        fornecedorService.salvar(
                 fornecedorDTO.toFornecedor()
         );
 
@@ -73,9 +73,23 @@ public class FornecedorController {
             return "redirect:/fornecedores";
         }
 
-        fornecedorService.cadastrar(
+        fornecedorService.salvar(
                 fornecedorDTO.toFornecedor(fornecedorOptional.get())
         );
+
+        return "redirect:/fornecedores";
+    }
+
+    @GetMapping("/fornecedores/{fornecedorId}/excluir")
+    public String excluirFornecedor(@PathVariable Long fornecedorId) {
+
+        Optional<Fornecedor> fornecedorOptional = fornecedorService.buscarPorId(fornecedorId);
+
+        if (!fornecedorOptional.isPresent()) {
+            return "redirect:/fornecedores";
+        }
+
+        fornecedorService.excluir(fornecedorOptional.get());
 
         return "redirect:/fornecedores";
     }

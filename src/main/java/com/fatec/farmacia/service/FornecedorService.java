@@ -17,15 +17,21 @@ public class FornecedorService {
     }
 
     public List<Fornecedor> buscarTodas() {
-        return fornecedorRepository.findAll();
+        return fornecedorRepository.findAllByDataExclusaoIsNull();
     }
 
     public Optional<Fornecedor> buscarPorId(Long id) {
         return fornecedorRepository.findById(id);
     }
 
-    public void cadastrar(Fornecedor fornecedor) {
+    public void salvar(Fornecedor fornecedor) {
         fornecedorRepository.save(fornecedor);
+    }
+
+    public void excluir(Fornecedor fornecedor) {
+        fornecedor.excluir();
+
+        this.salvar(fornecedor);
     }
 
 }

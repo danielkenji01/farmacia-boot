@@ -25,6 +25,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Endereço</th>
                         <th scope="col">#</th>
+                        <th scope="col">#</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                         <td th:text="${fornecedor.nome}">Mark</td>
                         <td th:text="${fornecedor.endereco}">Mark</td>
                         <td><a th:href="@{/fornecedores/__${fornecedor.id}__/editar}">Editar</a></td>
+                        <td><a th:href="@{/fornecedores/__${fornecedor.id}__/excluir}">Excluir</a></td>
                     </tr>
                     </tbody>
                 </table>
