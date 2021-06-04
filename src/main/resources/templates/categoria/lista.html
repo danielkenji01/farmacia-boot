@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{assets/select2-develop/dist/css/select2.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/select2-bootstrap4-theme-master/dist/select2-bootstrap4.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+    <div th:replace="main :: header">
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="mt-5 col-sm-12">
+                <a href="/categorias/novo" class="btn btn-primary" type="submit">Nova categoria</a>
+            </div>
+            <div class="mt-5 col-sm-12">
+                <table class="table table-stripered table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="categoria : ${categorias}">
+                        <th th:text="${categoria.id}">1</th>
+                        <td th:text="${categoria.nome}">Mark</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

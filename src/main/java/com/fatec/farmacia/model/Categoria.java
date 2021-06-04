@@ -13,4 +13,12 @@ public class Categoria {
 
     private String nome;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
 }

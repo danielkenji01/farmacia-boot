@@ -8,7 +8,7 @@
 
 <div th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-        <div class="container">
+        <div class="container" th:with="urlAtual=${#httpServletRequest.requestURI}">
             <a class="navbar-brand" href="/">Farmácia</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -16,22 +16,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/categorias">Categoria</a>
+                        <a class="nav-link" href="/categorias" th:classappend="${urlAtual.contains('categorias') ? 'active' : ''}">Categoria</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/fornecedores">Fornecedor</a>
+                        <a class="nav-link" href="/fornecedores" th:classappend="${urlAtual.contains('fornecedores') ? 'active' : ''}">Fornecedor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/produtos">Produto</a>
+                        <a class="nav-link" href="/produtos" th:classappend="${urlAtual.contains('produtos') ? 'active' : ''}">Produto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/venda">Venda</a>
+                        <a class="nav-link" href="/venda" th:classappend="${urlAtual.contains('venda') ? 'active' : ''}">Venda</a>
                     </li>
                 </ul>
             </div>
