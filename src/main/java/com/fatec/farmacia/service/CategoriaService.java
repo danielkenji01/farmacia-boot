@@ -17,15 +17,21 @@ public class CategoriaService {
     }
 
     public List<Categoria> buscarTodas() {
-        return categoriaRepository.findAll();
+        return categoriaRepository.findAllByDataExclusaoIsNull();
     }
 
     public Optional<Categoria> buscarPorId(Long id) {
         return categoriaRepository.findById(id);
     }
 
-    public void cadastrar(Categoria categoria) {
+    public void salvar(Categoria categoria) {
         categoriaRepository.save(categoria);
+    }
+
+    public void excluir(Categoria categoria) {
+        categoria.excluir();
+
+        this.salvar(categoria);
     }
 
 }

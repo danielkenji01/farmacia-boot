@@ -40,7 +40,7 @@ public class CategoriaController {
     @PostMapping("/categorias/novo")
     public String novaCategoria(CategoriaDTO categoriaDTO) {
 
-        categoriaService.cadastrar(
+        categoriaService.salvar(
                 categoriaDTO.toCategoria()
         );
 
@@ -73,9 +73,23 @@ public class CategoriaController {
             return "redirect:/categorias";
         }
 
-        categoriaService.cadastrar(
+        categoriaService.salvar(
                 categoriaDTO.toCategoria(categoriaOptional.get())
         );
+
+        return "redirect:/categorias";
+    }
+
+    @GetMapping("/categorias/{categoriaId}/excluir")
+    public String excluirCategoria(@PathVariable Long categoriaId) {
+
+        Optional<Categoria> categoriaOptional = categoriaService.buscarPorId(categoriaId);
+
+        if (!categoriaOptional.isPresent()) {
+            return "redirect:/categorias";
+        }
+
+        categoriaService.excluir(categoriaOptional.get());
 
         return "redirect:/categorias";
     }

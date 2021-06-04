@@ -28,4 +28,8 @@ public class Categoria {
         return this;
     }
 
+    public void excluir() {
+        this.dataExclusao = new Date();
+    }
+
 }
