@@ -1,6 +1,7 @@
 package com.fatec.farmacia.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "CATEGORIA")
@@ -11,6 +12,8 @@ public class Categoria {
     private Long id;
 
     private String nome;
+
+    private Date dataExclusao;
 
     public Long getId() {
         return id;

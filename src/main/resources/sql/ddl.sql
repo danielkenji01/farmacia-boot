@@ -1,12 +1,14 @@
 create table categoria (
 	id int primary key auto_increment,
-    nome varchar(50) not null
+    nome varchar(50) not null,
+    data_exclusao timestamp
 );
 
 create table fornecedor (
 	id int primary key auto_increment,
     nome varchar(50) not null,
-    endereco varchar(50) not null
+    endereco varchar(50) not null,
+    data_exclusao timestamp
 );
 
 create table produto (
@@ -15,6 +17,7 @@ create table produto (
     categoria_id int,
     fornecedor_id int,
     preco numeric(5,2) not null,
+    data_exclusao timestamp,
 
     constraint produto_categoria_id_fk foreign key (categoria_id) references categoria (id),
     constraint produto_fornecedor_id_fk foreign key (fornecedor_id) references fornecedor (id)

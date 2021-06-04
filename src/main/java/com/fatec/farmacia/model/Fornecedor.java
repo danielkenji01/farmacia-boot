@@ -1,6 +1,7 @@
 package com.fatec.farmacia.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "FORNECEDOR")
@@ -14,6 +15,8 @@ public class Fornecedor {
 
     private String endereco;
 
+    private Date dataExclusao;
+
     public Long getId() {
         return id;
     }
@@ -26,6 +29,10 @@ public class Fornecedor {
         return endereco;
     }
 
+    public Date getDataExclusao() {
+        return dataExclusao;
+    }
+
     public Fornecedor comNome(String nome) {
         this.nome = nome;
         return this;
@@ -34,6 +41,10 @@ public class Fornecedor {
     public Fornecedor comEndereco(String endereco) {
         this.endereco = endereco;
         return this;
+    }
+
+    public void excluir() {
+        this.dataExclusao = new Date();
     }
 
 }

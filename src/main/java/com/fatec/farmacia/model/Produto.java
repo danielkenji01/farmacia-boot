@@ -2,6 +2,7 @@ package com.fatec.farmacia.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "PRODUTO")
@@ -20,5 +21,7 @@ public class Produto {
     private Fornecedor fornecedor;
 
     private BigDecimal preco;
+
+    private Date dataExclusao;
 
 }
