@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:rel="stylesheet" th:href="@{assets/select2-develop/dist/css/select2.css}"/>
-    <link th:rel="stylesheet" th:href="@{assets/select2-bootstrap4-theme-master/dist/select2-bootstrap4.css}"/>
-    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
     <div th:replace="main :: header">
@@ -13,23 +11,23 @@
     </div>
 
     <div class="container">
+
         <div class="row">
             <div class="col-sm-12 mt-5">
 
                 <form method="post"
                       th:action="${isEdicao} ? @{/categorias/__${categoriaId}__/editar} : @{/categorias/novo}"
                       th:object="${categoriaDTO}">
-
                     <div class="form-group">
                         <label for="nome">Nome da categoria:</label>
-                        <input type="text" th:field="*{nome}" id="nome">
+                        <input class="form-control required" type="text" th:field="*{nome}" id="nome">
                     </div>
 
                     <button class="btn btn-primary"
-                            type="submit" th:text="${isEdicao ? 'Editar' : 'Cadastrar'}">Cadastrar</button>
+                            type="submit"
+                            th:text="${isEdicao ? 'Editar' : 'Cadastrar'}">Cadastrar</button>
                 </form>
             </div>
-
         </div>
     </div>
 
