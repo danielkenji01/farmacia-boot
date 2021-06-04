@@ -19,4 +19,8 @@ public class CategoriaService {
         return categoriaRepository.findAll();
     }
 
+    public void cadastrar(Categoria categoria) {
+        categoriaRepository.save(categoria);
+    }
+
 }

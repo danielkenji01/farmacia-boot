@@ -21,4 +21,9 @@ public class Categoria {
         return nome;
     }
 
+    public Categoria comNome(String nome) {
+        this.nome = nome;
+        return this;
+    }
+
 }
