@@ -43,4 +43,10 @@ public class VendaDTO {
                 .calcularValorTotal();
     }
 
+    public ItemVenda toItemVenda(ItemVenda itemVenda) {
+        return itemVenda
+                .comQuantidade(this.quantidade)
+                .calcularValorTotal();
+    }
+
 }

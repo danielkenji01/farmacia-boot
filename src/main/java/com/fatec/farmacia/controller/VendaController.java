@@ -1,6 +1,7 @@
 package com.fatec.farmacia.controller;
 
 import com.fatec.farmacia.dto.VendaDTO;
+import com.fatec.farmacia.model.ItemVenda;
 import com.fatec.farmacia.model.Produto;
 import com.fatec.farmacia.model.Venda;
 import com.fatec.farmacia.service.ItemVendaService;
@@ -34,6 +35,7 @@ public class VendaController {
     @GetMapping("/venda")
     public String abrirTela(Model model) {
         model.addAttribute("vendaDTO", new VendaDTO());
+        model.addAttribute("isEdicao", false);
 
         return "venda/form";
     }
@@ -50,6 +52,7 @@ public class VendaController {
 
         model.addAttribute("venda", vendaOptional.get());
         model.addAttribute("vendaDTO", new VendaDTO());
+        model.addAttribute("isEdicao", true);
 
         return "venda/form";
     }
@@ -75,5 +78,33 @@ public class VendaController {
         return String.format("reditect:/venda/%s", venda.getId());
     }
 
+    @PostMapping("/venda/{vendaId}/adicionar-produto")
+    public String adicionarProduto(@PathVariable Long vendaId,
+                                   VendaDTO vendaDTO) {
+
+        Optional<Venda> vendaOptional = vendaService.buscarPorId(vendaId);
+
+        if (!vendaOptional.isPresent()) {
+            return "redirect:/venda";
+        }
+
+        Optional<Produto> produtoOptional = produtoService.buscarProdutoPorId(vendaDTO.getProdutoId());
+
+        if (!produtoOptional.isPresent()) {
+            return String.format("redirect:/venda/%s", vendaId);
+        }
+
+        Produto produto = produtoOptional.get();
+
+        Optional<ItemVenda> itemVendaOptional = itemVendaService.buscarPorVendaEProduto(vendaOptional.get(), produto);
+
+        if (itemVendaOptional.isPresent()) {
+            itemVendaService.salvar(vendaDTO.toItemVenda(itemVendaOptional.get()));
+        } else {
+            itemVendaService.salvar(vendaDTO.toItemVenda(produto, vendaOptional.get()));
+        }
+
+        return String.format("redirect:/venda/%s", vendaId);
+    }
 
 }
