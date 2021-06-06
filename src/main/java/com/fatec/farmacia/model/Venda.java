@@ -64,6 +64,16 @@ public class Venda {
         return this;
     }
 
+    public Venda calcularValorTotal() {
+        this.valorTotal = BigDecimal.ZERO;
+
+        for (ItemVenda itemVenda : itemVendaList) {
+            this.valorTotal = this.valorTotal.add(itemVenda.getValorTotal());
+        }
+
+        return this;
+    }
+
     public enum TipoPagamento {
         DINHEIRO,
         CARTAO_CREDITO,

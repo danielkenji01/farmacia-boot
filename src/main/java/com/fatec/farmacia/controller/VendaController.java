@@ -75,6 +75,8 @@ public class VendaController {
                 venda
         ));
 
+        vendaService.calcularValorTotal(venda);
+
         return String.format("reditect:/venda/%s", venda.getId());
     }
 
@@ -95,14 +97,17 @@ public class VendaController {
         }
 
         Produto produto = produtoOptional.get();
+        Venda venda = vendaOptional.get();
 
-        Optional<ItemVenda> itemVendaOptional = itemVendaService.buscarPorVendaEProduto(vendaOptional.get(), produto);
+        Optional<ItemVenda> itemVendaOptional = itemVendaService.buscarPorVendaEProduto(venda, produto);
 
         if (itemVendaOptional.isPresent()) {
             itemVendaService.salvar(vendaDTO.toItemVenda(itemVendaOptional.get()));
         } else {
-            itemVendaService.salvar(vendaDTO.toItemVenda(produto, vendaOptional.get()));
+            itemVendaService.salvar(vendaDTO.toItemVenda(produto, venda));
         }
+
+        vendaService.calcularValorTotal(venda);
 
         return String.format("redirect:/venda/%s", vendaId);
     }

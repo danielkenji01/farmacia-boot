@@ -19,6 +19,12 @@ public class VendaService {
         return vendaRepository.findById(id);
     }
 
+    public void calcularValorTotal(Venda venda) {
+        venda.calcularValorTotal();
+
+        this.salvar(venda);
+    }
+
     public Venda salvar(Venda venda) {
         return vendaRepository.save(venda);
     }

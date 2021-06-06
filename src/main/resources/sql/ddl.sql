@@ -27,7 +27,8 @@ create table venda (
 	id int primary key auto_increment,
     data_venda timestamp not null,
     valor_total numeric(5,2) not null,
-    tipo_pagamento varchar(20) not null
+    tipo_pagamento varchar(20),
+    status varchar(20)
 );
 
 create table item_venda (
