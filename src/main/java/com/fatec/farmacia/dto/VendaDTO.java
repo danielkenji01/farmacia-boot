@@ -10,6 +10,8 @@ public class VendaDTO {
 
     private int quantidade;
 
+    private Venda.TipoPagamento tipoPagamento;
+
     public Long getProdutoId() {
         return produtoId;
     }
@@ -24,6 +26,14 @@ public class VendaDTO {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public Venda.TipoPagamento getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    public void setTipoPagamento(Venda.TipoPagamento tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
     }
 
     public Venda toVenda(Produto produto) {

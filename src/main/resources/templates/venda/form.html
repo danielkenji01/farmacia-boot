@@ -63,6 +63,22 @@
             </tbody>
         </table>
     </div>
+
+    <div class="col-sm-12 mt-5">
+        <form method="post" th:action="@{/venda/__${vendaId}__/finalizar-venda}">
+
+            <div class="form-group">
+                <label for="tipoPagamento">Tipo de pagamento:</label>
+                <select id="tipoPagamento" class="form-control select2-single" name="tipoPagamento">
+                    <option th:value="${tipoPagamento}"
+                            th:each="tipoPagamento:${tipoPagamentoList}"
+                            th:text="${tipoPagamento.descricao}"></option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Finalizar venda</button>
+        </form>
+    </div>
 </div>
 
 </body>

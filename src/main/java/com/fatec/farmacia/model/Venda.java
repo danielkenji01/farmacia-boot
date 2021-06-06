@@ -20,6 +20,7 @@ public class Venda {
     @Enumerated(EnumType.STRING)
     private TipoPagamento tipoPagamento;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @OneToMany(mappedBy = "venda", fetch = FetchType.LAZY)
@@ -74,10 +75,25 @@ public class Venda {
         return this;
     }
 
+    public void finalizarVenda(TipoPagamento tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
+        this.status = Status.FINALIZADA;
+    }
+
     public enum TipoPagamento {
-        DINHEIRO,
-        CARTAO_CREDITO,
-        CARTAO_DEBITO;
+        DINHEIRO("Dinheiro"),
+        CARTAO_CREDITO("Cartão de crédito"),
+        CARTAO_DEBITO("Cartão de débito");
+
+        private final String descricao;
+
+        TipoPagamento(String descricao) {
+            this.descricao = descricao;
+        }
+
+        public String getDescricao() {
+            return descricao;
+        }
     }
 
     public enum Status {

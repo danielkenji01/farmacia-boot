@@ -53,6 +53,7 @@ public class VendaController {
         model.addAttribute("venda", vendaOptional.get());
         model.addAttribute("vendaDTO", new VendaDTO());
         model.addAttribute("isEdicao", true);
+        model.addAttribute("tipoPagamentoList", Venda.TipoPagamento.values());
 
         return "venda/form";
     }
@@ -110,6 +111,24 @@ public class VendaController {
         vendaService.calcularValorTotal(venda);
 
         return String.format("redirect:/venda/%s", vendaId);
+    }
+
+    @PostMapping("/venda/{vendaId}/finalizar-venda")
+    public String finalizarVenda(@PathVariable Long vendaId,
+                                 VendaDTO vendaDTO) {
+
+        Optional<Venda> vendaOptional = vendaService.buscarPorId(vendaId);
+
+        if (!vendaOptional.isPresent()) {
+            return "redirect:/venda";
+        }
+
+        vendaService.finalizarVenda(
+                vendaOptional.get(),
+                vendaDTO.getTipoPagamento()
+        );
+
+        return "redirect:/app";
     }
 
 }

@@ -10,9 +10,9 @@
 </html><!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
 <div th:replace="main :: header">
@@ -20,41 +20,43 @@
 </div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12 mt-5">
+    <div class="row">
+        <div class="col-sm-12 mt-5">
 
-      <form method="post"
-            th:action="${isEdicao} ? @{/produtos/__${produtoId}__/editar} : @{/produtos/novo}"
-            th:object="${produtoDTO}">
+            <form method="post"
+                  th:action="${isEdicao} ? @{/produtos/__${produtoId}__/editar} : @{/produtos/novo}"
+                  th:object="${produtoDTO}">
 
-        <div class="form-group">
-          <label for="nome">Nome do produto:</label>
-          <input class="form-control" type="text" th:field="*{nome}" id="nome">
+                <div class="form-group">
+                    <label for="nome">Nome do produto:</label>
+                    <input class="form-control" type="text" th:field="*{nome}" id="nome">
+                </div>
+
+                <div class="form-group">
+                    <label for="preco">preço do produto:</label>
+                    <input class="form-control" type="text" th:field="*{preco}" id="preco">
+                </div>
+                <div class="form-group">
+                    <label for="categoria">categoria do produto:</label>
+                    <select id="categoria" class="form-control select2-single " th:field="*{categoriaId}">
+                        <option th:value="${categoria.id}" th:each="categoria:${categorias}"
+                                th:text="${categoria.nome}">teste
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fornecedor">fornecedor do produto</label>
+                    <select id="fornecedor" class="form-control select2-single" th:field="*{fornecedorId}">
+                        <option th:value="${fornecedor.id}" th:each="fornecedor:${fornecedores}"
+                                th:text="${fornecedor.nome}"></option>
+                    </select>
+                </div>
+                <button class="btn btn-primary"
+                        type="submit" th:text="${isEdicao ? 'Editar' : 'Cadastrar'}">Cadastrar
+                </button>
+            </form>
         </div>
-
-        <div class="form-group">
-          <label for="preco">preço do produto:</label>
-          <input class="form-control" type="text" th:field="*{preco}" id="preco">
-        </div>
-        <div class="form-group">
-          <label for="categoria">categoria do produto:</label>
-          <select id="categoria" class="form-control select2-single " th:field="*{categoriaId}">
-          <option th:value="${categoria.id}" th:each="categoria:${categorias}" th:text="${categoria.nome}">teste</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="fornecedor">fornecedor do produto</label>
-          <select id="fornecedor" class="form-control select2-single" th:field="*{fornecedorId}">
-            <option th:value="${fornecedor.id}" th:each="fornecedor:${fornecedores}" th:text="${fornecedor.nome}"></option>
-          </select>
-        </div>
-        <button class="btn btn-primary"
-                type="submit" th:text="${isEdicao ? 'Editar' : 'Cadastrar'}">Cadastrar</button>
-
-      </form>
-
     </div>
-  </div>
 </div>
 
 </body>

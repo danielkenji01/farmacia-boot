@@ -25,6 +25,13 @@ public class VendaService {
         this.salvar(venda);
     }
 
+    public void finalizarVenda(Venda venda,
+                               Venda.TipoPagamento tipoPagamento) {
+        venda.finalizarVenda(tipoPagamento);
+
+        this.salvar(venda);
+    }
+
     public Venda salvar(Venda venda) {
         return vendaRepository.save(venda);
     }
