@@ -12,6 +12,17 @@ public class ProdutoDTO {
     private Long categoriaId;
     private Long fornecedorId;
 
+    public ProdutoDTO() {
+
+    }
+
+    public ProdutoDTO(Produto produto) {
+        this.nome = produto.getNome();
+        this.preco = produto.getPreco().intValue();
+        this.categoriaId = produto.getCategoria() != null ? produto.getCategoria().getId() : null;
+        this.fornecedorId = produto.getFornecedor() != null ? produto.getFornecedor().getId() : null;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -43,12 +54,18 @@ public class ProdutoDTO {
     public void setFornecedorId(Long fornecedorId) {
         this.fornecedorId = fornecedorId;
     }
+
     public Produto produtoConverte() {
-        Produto produto = new Produto();
+        return produtoConverte(new Produto());
+    }
+
+    public Produto produtoConverte(Produto produto) {
         produto.setNome(nome);
         produto.setPreco(BigDecimal.valueOf(preco));
         produto.setCategoria(new Categoria(categoriaId));
         produto.setFornecedor(new Fornecedor(fornecedorId));
+
         return produto;
     }
+
 }

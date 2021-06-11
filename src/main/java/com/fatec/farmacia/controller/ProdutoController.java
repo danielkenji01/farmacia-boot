@@ -29,29 +29,62 @@ public class ProdutoController {
     }
 
     @GetMapping("/produtos")
-    public String listarProdutos (Model model) {
+    public String listarProdutos(Model model) {
         List<Produto> produtos = produtoService.buscarTodos();
-        model.addAttribute("produtos",produtos);
+        model.addAttribute("produtos", produtos);
         return "produtos/lista";
     }
 
     @GetMapping("/produtos/novo")
-    public String adicionaProduto (Model model) {
-        model.addAttribute("produtoDTO",new ProdutoDTO());
-        model.addAttribute("isEdicao",false);
-        model.addAttribute("categorias",categoriaService.buscarTodas());
-        model.addAttribute("fornecedores",fornecedorService.buscarTodas());
+    public String adicionaProduto(Model model) {
+        model.addAttribute("produtoDTO", new ProdutoDTO());
+        model.addAttribute("isEdicao", false);
+        model.addAttribute("categorias", categoriaService.buscarTodas());
+        model.addAttribute("fornecedores", fornecedorService.buscarTodas());
         return "produtos/form";
     }
 
     @PostMapping("/produtos/novo")
-    public String adicionaProduto (ProdutoDTO produtoDTO) {
+    public String adicionaProduto(ProdutoDTO produtoDTO) {
         produtoService.salvar(produtoDTO.produtoConverte());
         return "redirect:/produtos";
     }
 
+    @GetMapping("/produtos/{produtoId}/editar")
+    public String editarProduto(@PathVariable Long produtoId,
+                                Model model) {
+
+        Optional<Produto> produtoOptional = produtoService.buscarPorId(produtoId);
+
+        if (!produtoOptional.isPresent()) {
+            return "redirect:/produtos";
+        }
+
+        model.addAttribute("produtoDTO", new ProdutoDTO(produtoOptional.get()));
+        model.addAttribute("isEdicao", true);
+        model.addAttribute("categorias", categoriaService.buscarTodas());
+        model.addAttribute("fornecedores", fornecedorService.buscarTodas());
+
+        return "produtos/form";
+    }
+
+    @PostMapping("/produtos/{produtoId}/editar")
+    public String editarProduto(@PathVariable Long produtoId,
+                                ProdutoDTO produtoDTO) {
+
+        Optional<Produto> produtoOptional = produtoService.buscarPorId(produtoId);
+
+        if (!produtoOptional.isPresent()) {
+            return "redirect:/produtos";
+        }
+
+        produtoService.salvar(produtoDTO.produtoConverte(produtoOptional.get()));
+
+        return "redirect:/produtos";
+    }
+
     @GetMapping("/produtos/{produtoId}/excluir")
-    public String excluirCategoria(@PathVariable Long produtoId) {
+    public String excluirProduto(@PathVariable Long produtoId) {
 
         Optional<Produto> produtoOptional = produtoService.buscarPorId(produtoId);
 
