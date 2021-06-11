@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{assets/select2-develop/dist/css/select2.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/select2-bootstrap4-theme-master/dist/select2-bootstrap4.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+    <div th:replace="main :: header">
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="mt-5 col-sm-12">
+                <a href="/venda" class="btn btn-primary" type="submit">Nova venda</a>
+            </div>
+            <div class="mt-5 col-sm-12">
+                <table class="table table-stripered table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Data da venda</th>
+                        <th scope="col">Valor total</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tipo de pagamento</th>
+                        <th scope="col">#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="venda : ${vendas}">
+                        <th th:text="${venda?.id}">1</th>
+                        <td th:text="${#dates.format(venda?.dataVenda, 'dd/MM/yyyy - HH:mm')}">Mark</td>
+                        <th th:text="${venda?.valorTotal}">1</th>
+                        <th th:text="${venda?.status?.descricao}">1</th>
+                        <th th:text="${venda?.tipoPagamento?.descricao}">1</th>
+                        <td><a th:href="@{/venda/__${venda.id}__}">Verificar</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

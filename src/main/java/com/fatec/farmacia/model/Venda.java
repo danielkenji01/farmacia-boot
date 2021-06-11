@@ -75,6 +75,10 @@ public class Venda {
         return this;
     }
 
+    public boolean isEmAndamento() {
+        return Status.EM_ANDAMENTO.equals(this.status);
+    }
+
     public void finalizarVenda(TipoPagamento tipoPagamento) {
         this.tipoPagamento = tipoPagamento;
         this.status = Status.FINALIZADA;
@@ -97,9 +101,19 @@ public class Venda {
     }
 
     public enum Status {
-        EM_ANDAMENTO,
-        FINALIZADA,
-        CANDELADA;
+        EM_ANDAMENTO("Em andamento"),
+        FINALIZADA("Finalizada"),
+        CANDELADA("Cancelada");
+
+        private final String descricao;
+
+        Status(String descricao) {
+            this.descricao = descricao;
+        }
+
+        public String getDescricao() {
+            return descricao;
+        }
     }
 
 }

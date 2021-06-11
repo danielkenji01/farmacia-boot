@@ -4,6 +4,7 @@ import com.fatec.farmacia.model.Venda;
 import com.fatec.farmacia.repository.VendaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,6 +14,10 @@ public class VendaService {
 
     public VendaService(VendaRepository vendaRepository) {
         this.vendaRepository = vendaRepository;
+    }
+
+    public List<Venda> buscarTodas() {
+        return vendaRepository.findAll();
     }
 
     public Optional<Venda> buscarPorId(Long id) {

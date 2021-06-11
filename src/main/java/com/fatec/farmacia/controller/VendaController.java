@@ -40,6 +40,13 @@ public class VendaController {
         return "venda/form";
     }
 
+    @GetMapping("/vendas")
+    public String buscarVendas(Model model) {
+        model.addAttribute("vendas", vendaService.buscarTodas());
+
+        return "venda/lista";
+    }
+
     @GetMapping("/venda/{vendaId}")
     public String abrirVenda(@PathVariable Long vendaId,
                              Model model) {
@@ -128,7 +135,7 @@ public class VendaController {
                 vendaDTO.getTipoPagamento()
         );
 
-        return "redirect:/app";
+        return "redirect:/vendas";
     }
 
 }
