@@ -8,9 +8,11 @@ import com.fatec.farmacia.service.ProdutoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProdutoController {
@@ -18,7 +20,9 @@ public class ProdutoController {
     private final CategoriaService categoriaService;
     private final FornecedorService fornecedorService;
 
-    public ProdutoController(ProdutoService produtoService, CategoriaService categoriaService, FornecedorService fornecedorService) {
+    public ProdutoController(ProdutoService produtoService,
+                             CategoriaService categoriaService,
+                             FornecedorService fornecedorService) {
         this.produtoService = produtoService;
         this.categoriaService = categoriaService;
         this.fornecedorService = fornecedorService;
@@ -30,6 +34,7 @@ public class ProdutoController {
         model.addAttribute("produtos",produtos);
         return "produtos/lista";
     }
+
     @GetMapping("/produtos/novo")
     public String adicionaProduto (Model model) {
         model.addAttribute("produtoDTO",new ProdutoDTO());
@@ -44,4 +49,19 @@ public class ProdutoController {
         produtoService.salvar(produtoDTO.produtoConverte());
         return "redirect:/produtos";
     }
+
+    @GetMapping("/produtos/{produtoId}/excluir")
+    public String excluirCategoria(@PathVariable Long produtoId) {
+
+        Optional<Produto> produtoOptional = produtoService.buscarPorId(produtoId);
+
+        if (!produtoOptional.isPresent()) {
+            return "redirect:/produtos";
+        }
+
+        produtoService.excluir(produtoOptional.get());
+
+        return "redirect:/produtos";
+    }
+
 }

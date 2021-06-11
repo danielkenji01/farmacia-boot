@@ -16,15 +16,19 @@ public class ProdutoService {
     }
 
     public List<Produto> buscarTodos() {
-        return produtoRepository.findAll();
+        return produtoRepository.findAllByDataExclusaoIsNull();
     }
 
-    public Optional<Produto> buscarProdutoPorId(Long id) {
+    public Optional<Produto> buscarPorId(Long id) {
         return produtoRepository.findById(id);
     }
 
     public void salvar(Produto produto) {
         produtoRepository.save(produto);
+    }
+
+    public void excluir(Produto produto) {
+        produtoRepository.excluirProduto(produto.getId());
     }
 
 }

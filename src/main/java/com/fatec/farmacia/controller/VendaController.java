@@ -68,7 +68,7 @@ public class VendaController {
     @PostMapping("/venda/adicionar-produto")
     public String adicionarProduto(VendaDTO vendaDTO) {
 
-        Optional<Produto> produtoOptional = produtoService.buscarProdutoPorId(vendaDTO.getProdutoId());
+        Optional<Produto> produtoOptional = produtoService.buscarPorId(vendaDTO.getProdutoId());
 
         if (!produtoOptional.isPresent()) {
             return "/venda";
@@ -98,7 +98,7 @@ public class VendaController {
             return "redirect:/venda";
         }
 
-        Optional<Produto> produtoOptional = produtoService.buscarProdutoPorId(vendaDTO.getProdutoId());
+        Optional<Produto> produtoOptional = produtoService.buscarPorId(vendaDTO.getProdutoId());
 
         if (!produtoOptional.isPresent()) {
             return String.format("redirect:/venda/%s", vendaId);
