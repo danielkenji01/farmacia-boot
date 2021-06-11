@@ -42,3 +42,9 @@ create table item_venda (
     constraint item_venda_venda_id_fk foreign key (venda_id) references venda (id),
     constraint item_venda_produto_id_fk foreign key (produto_id) references produto (id)
 );
+
+delimiter
+create procedure excluir_produto(in id_produto int)
+	begin
+		update produto set data_exclusao = now() where id = id_produto;
+    end
